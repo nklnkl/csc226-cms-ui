@@ -1,0 +1,23 @@
+<section class="container">
+  <div class="alert alert-danger" role="alert" *ngIf="error">
+    <strong>{{errorTitle}}</strong> {{errorMessage}}
+  </div>
+
+  <h2>{{account.getUsername()}}</h2>
+  <label class="role">Role: {{account.getRoleString()}}</label>
+  <label class="location">Location: {{account.getLocation()}}</label>
+  <p>{{account.getBio()}}</p>
+</section>
+
+<section class="container">
+  <h3>blog posts</h3>
+  <div class="card-group">
+    <div *ngFor="let blogPost of blogPosts; let i = index;" class="card" style="width: 20rem;">
+      <div class="card-body">
+        <h4 class="card-title">{{blogPost.getTitle()}}</h4>
+        <p class="card-text">{{blogPost.getBody()}}</p>
+        <a routerLink="/blog-post/{{blogPost.getId()}}" class="btn btn-primary">Read</a>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,22 @@
+section {
+  margin-top: 20px;
+}
+label {
+  display: block;
+  color: darkblue;
+}
+p {
+  background-color: lightgrey;
+  padding: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border-radius: 5px;
+}
+h4.card-title {
+  height: 70px;
+}
+p.card-text {
+  height: 240px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
