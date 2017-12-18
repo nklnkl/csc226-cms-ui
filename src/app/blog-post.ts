@@ -1,7 +1,7 @@
 import { Entity } from './entity';
 
 export class BlogPost extends Entity {
-  private accountId: string;
+  private account_id: string;
   private title: string;
   private body: string;
   private privacy: number;
@@ -9,10 +9,10 @@ export class BlogPost extends Entity {
   constructor (object?: any) {
     if (object) {
       super(object);
-      this.accountId = object.account_id;
+      this.account_id = object.account_id;
       this.title = object.title;
       this.body = object.body;
-      this.privacy = object.privacy;
+      this.privacy = Number(object.privacy);
     }
     else {
       super();
@@ -21,7 +21,7 @@ export class BlogPost extends Entity {
 
   public toObject () : any {
     let object: any;
-    object.account_id = this.accountId;
+    object.account_id = this.account_id;
     object.title = this.title;
     object.body = this.body;
     object.privacy = this.privacy;
@@ -38,7 +38,7 @@ export class BlogPost extends Entity {
   }
 
   public getAccountId () : string {
-    return this.accountId;
+    return this.account_id;
   }
   public getTitle () : string {
     return this.title;
@@ -50,9 +50,9 @@ export class BlogPost extends Entity {
     return this.privacy;
   }
 
-  public setAccountId (accountId: string) : string {
-    this.accountId = accountId;
-    return this.accountId;
+  public setAccountId (account_id: string) : string {
+    this.account_id = account_id;
+    return this.account_id;
   }
   public setTitle (title: string) : string {
     this.title = title;
