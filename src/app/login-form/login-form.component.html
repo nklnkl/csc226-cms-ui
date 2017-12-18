@@ -1,3 +1,7 @@
+<div class="alert alert-danger" role="alert" *ngIf="error">
+  <strong>{{errorTitle}}</strong> {{errorMessage}}
+</div>
+
 <form>
   <div class="form-group">
     <label for="email">Email address</label>
@@ -10,8 +14,3 @@
   </div>
   <button (click)="login()" class="btn btn-primary">Login</button>
 </form>
-
-<article *ngIf="error">
-  <h2>{{errorTitle}}</h2>
-  <p>{{errorMessage}}</p>
-</article>

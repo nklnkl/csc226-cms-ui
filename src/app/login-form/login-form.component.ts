@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgIf } from '@angular/common';
+import { Router } from '@angular/router';
 
 import { SessionService } from '../session.service';
 
@@ -18,7 +19,10 @@ export class LoginFormComponent implements OnInit {
   private errorTitle: string;
   private errorMessage: string;
 
-  constructor(private sessionService: SessionService) { }
+  constructor(
+    private sessionService: SessionService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.error = false;
@@ -28,6 +32,7 @@ export class LoginFormComponent implements OnInit {
     this.sessionService.register(this.email, this.password)
     .then((result: number) => {
       this.error = false;
+      this.router.navigate(['/blog-posts']);
     })
     .catch((result: number) => {
       this.error = true;
