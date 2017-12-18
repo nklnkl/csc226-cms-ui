@@ -1,0 +1,5 @@
+<article *ngFor="let blogPost of blogPosts; let i = index">
+  <h2>{{blogPost.getTitle()}}</h2>
+  <a routerLink="/account/{{blogPost.getAccountId()}}">{{usernames[i]}}</a>
+  <p>{{blogPost.getBody()}}</p>
+</article>
