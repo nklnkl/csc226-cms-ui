@@ -8,8 +8,8 @@ export class Entity {
   constructor (object?: any) {
     if (object) {
       this.setId(object.id);
-      this.setCreated(object.created);
-      this.setUpdated(object.updated);
+      this.setCreated(Number(object.created));
+      this.setUpdated(Number(object.updated));
     }
   }
 

@@ -12,8 +12,8 @@ export class Account extends Entity {
   constructor (object?: any) {
     if (object) {
       super(object);
-      this.status = object.status;
-      this.role = object.role;
+      this.status = Number(object.status);
+      this.role = Number(object.role);
       this.email = object.email;
       this.password = object.password;
       this.username = object.username;

@@ -1,15 +1,15 @@
 import { Entity } from './entity';
 
 export class Comment extends Entity {
-  private accountId: string;
-  private blogPostId: string;
+  private account_id: string;
+  private blog_post_id: string;
   private body: string;
 
   constructor (object?: any) {
     if (object) {
       super(object);
-      this.accountId = object.account_id;
-      this.blogPostId = object.blog_post_id;
+      this.account_id = object.account_id;
+      this.blog_post_id = object.blog_post_id;
       this.body = object.body;
     }
     else {
@@ -19,30 +19,30 @@ export class Comment extends Entity {
 
   public toObject () : any {
     let object: any;
-    object.account_id = this.accountId;
-    object.blog_post_id = this.blogPostId;
+    object.account_id = this.account_id;
+    object.blog_post_id = this.blog_post_id;
     object.body = this.body;
     let superObject: any = super.toObject();
     return { ...superObject, ...object };
   }
 
   public getAccountId () : string {
-    return this.accountId;
+    return this.account_id;
   }
   public getBlogPostId () : string {
-    return this.blogPostId;
+    return this.blog_post_id;
   }
   public getBody () : string {
     return this.body;
   }
 
-  public setAccountId (accountId: string) : string {
-    this.accountId = accountId;
-    return this.accountId;
+  public setAccountId (account_id: string) : string {
+    this.account_id = account_id;
+    return this.account_id;
   }
-  public setBlogPostId (blogPostId: string) : string {
-    this.blogPostId = blogPostId;
-    return this.blogPostId;
+  public setBlogPostId (blog_post_id: string) : string {
+    this.blog_post_id = blog_post_id;
+    return this.blog_post_id;
   }
   public setBody (body: string) : string {
     this.body = body;
