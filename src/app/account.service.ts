@@ -101,8 +101,6 @@ export class AccountService {
         },
         (err: HttpErrorResponse) => {
           switch (err.status) {
-            case 200:
-              break;
             case 404:
               reject(1);
               break;
@@ -219,9 +217,6 @@ export class AccountService {
         },
         (err: HttpErrorResponse) => {
           switch (err.status) {
-            case 200:
-              resolve(0);
-              break;
             case 401:
               reject(1);
               break;

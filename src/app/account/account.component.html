@@ -3,14 +3,18 @@
     <strong>{{errorTitle}}</strong> {{errorMessage}}
   </div>
 
-  <h2>{{account.getUsername()}}</h2>
-  <label class="role">Role: {{account.getRoleString()}}</label>
+  <h2>{{account.getUsername()}} <span class="badge badge-secondary">{{ account.getRoleString() }}</span></h2>
   <label class="location">Location: {{account.getLocation()}}</label>
   <p>{{account.getBio()}}</p>
 </section>
 
+<hr/>
+
 <section class="container">
-  <h3>blog posts</h3>
+  <h3>blog posts <span class="badge badge-primary">{{ blogPosts.length }}</span></h3>
+  <p *ngIf="blogPosts.length ==0">
+    {{account.getUsername()}} has not written any blog posts
+  </p>
   <div class="card-group">
     <div *ngFor="let blogPost of blogPosts; let i = index;" class="card" style="width: 20rem;">
       <div class="card-body">
@@ -20,4 +24,14 @@
       </div>
     </div>
   </div>
+</section>
+
+<hr/>
+
+<section class="container">
+  <h3>comments on blog posts <span class="badge badge-primary">{{ comments.length }}</span></h3>
+  <ul class="list-group comments">
+    <li *ngIf="comments.length == 0" class="list-group-item">{{account.getUsername()}} has not written any comments</li>
+    <li *ngFor="let comment of comments; let i = index;" routerLink="/blog-post/{{comment.getBlogPostId()}}" class="list-group-item">{{ comment.getBody() }}</li>
+  </ul>
 </section>

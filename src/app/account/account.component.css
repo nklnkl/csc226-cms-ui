@@ -3,7 +3,7 @@ section {
 }
 label {
   display: block;
-  color: darkblue;
+  color: grey;
 }
 p {
   background-color: lightgrey;
@@ -19,4 +19,7 @@ p.card-text {
   height: 240px;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+ul.comments:hover {
+  cursor: pointer;
 }

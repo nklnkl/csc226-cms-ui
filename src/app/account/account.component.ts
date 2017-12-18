@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { AccountService } from '../account.service';
 import { BlogPostService } from '../blog-post.service';
+import { CommentService } from '../comment.service';
 import { Account } from '../account';
 import { BlogPost } from '../blog-post';
 
@@ -15,6 +16,7 @@ export class AccountComponent implements OnInit {
 
   private account: Account;
   private blogPosts: BlogPost [];
+  private comments: Comment [];
 
   private error: boolean;
   private errorTitle: string;
@@ -23,14 +25,22 @@ export class AccountComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private accountService: AccountService,
-    private blogPostService: BlogPostService
+    private blogPostService: BlogPostService,
+    private commentService: CommentService
   ) {
     this.account = new Account();
     this.blogPosts = [];
+    this.comments = [];
   }
 
   ngOnInit() {
     this.error = false;
+    this.getAccount();
+    this.getBlogPosts();
+    this.getComments();
+  }
+
+  private getAccount () : void {
     this.accountService.retrieve(this.route.snapshot.paramMap.get('id'))
     .then((account: Account) => {
       this.error = false;
@@ -51,11 +61,21 @@ export class AccountComponent implements OnInit {
           this.errorTitle = 'Server error!';
           this.errorMessage = 'A server error has occured, please try again later.';
       }
-     })
-     .then(() => this.blogPostService.list(this.account.getId()))
-     .then((blogPosts: BlogPost[]) => {
-       this.blogPosts = blogPosts;
-     });
+    });
+  }
+
+  private getBlogPosts () : void {
+    this.blogPostService.list(this.route.snapshot.paramMap.get('id'))
+    .then((blogPosts: BlogPost[]) => {
+      this.blogPosts = blogPosts;
+    });
+  }
+
+  private getComments () : void {
+    this.commentService.listByAccount(this.route.snapshot.paramMap.get('id'))
+    .then((comments: Comment[]) => {
+      this.comments = comments;
+    });
   }
 
 }
