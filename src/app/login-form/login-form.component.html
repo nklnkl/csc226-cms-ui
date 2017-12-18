@@ -1,0 +1,17 @@
+<form>
+  <div class="form-group">
+    <label for="email">Email address</label>
+    <input [(ngModel)]="email" name="email" type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
+    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+  </div>
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input [(ngModel)]="password" name="password" type="password" class="form-control" id="password" placeholder="Password">
+  </div>
+  <button (click)="login()" class="btn btn-primary">Login</button>
+</form>
+
+<article *ngIf="error">
+  <h2>{{errorTitle}}</h2>
+  <p>{{errorMessage}}</p>
+</article>
