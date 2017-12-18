@@ -1,0 +1,14 @@
+<div class="alert alert-danger" role="alert" *ngIf="error">
+  <strong>{{errorTitle}}</strong> {{errorMessage}}
+</div>
+
+<div class="jumbotron">
+  <h1 class="display-3">Logging out</h1>
+  <p class="lead">
+    Are you sure you want to logout?
+  </p>
+  <hr class="my-4">
+  <p class="lead">
+    <button (click)="logout()" class="btn btn-primary btn-lg" href="#" role="button">Logout</button>
+  </p>
+</div>
