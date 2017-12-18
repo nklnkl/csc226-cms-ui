@@ -5,20 +5,14 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { Session } from './session';
 
 interface SessionBody {
-  'id'?: string;
-  'created'?: number;
-  'updated'?: number;
-  'account-id'?: string;
+  id?: string;
+  created?: number;
+  updated?: number;
+  account_id?: string;
 }
 
 @Injectable()
 export class SessionService {
-
-  private httpOptions: any = {
-    headers: new HttpHeaders({  }),
-    observe: 'response',
-    responseType: 'json'
-  };
 
   private url: string = 'http://45.55.65.220:10010/api/account';
 
@@ -53,8 +47,8 @@ export class SessionService {
         (res: HttpResponse<SessionBody>) => {
           switch (res.status) {
             case 200:
-              localStorage.setItem('accountId', res.body['account-id']);
-              localStorage.setItem('sessionId', res.body['session-id']);
+              localStorage.setItem('account_id', res.body.account_id);
+              localStorage.setItem('session_id', res.body.id);
               resolve(0);
               break;
             case 401:
@@ -86,8 +80,10 @@ export class SessionService {
 
     let headers: HttpHeaders = new HttpHeaders();
     headers.append('Content-Type','application/json');
-    headers.append('account-id', localStorage.getItem('accountId'));
-    headers.append('session-id', localStorage.getItem('sessionId'));
+    if (localStorage.getItem('account_id'))
+      headers.append('account_id', localStorage.getItem('account_id'));
+    if (localStorage.getItem('session_id'))
+      headers.append('session_id', localStorage.getItem('session_id'));
     let httpOptions: any = {
       headers: headers,
       observe: 'response',
