@@ -1,0 +1,24 @@
+<div class="alert alert-danger" role="alert" *ngIf="error">
+  <strong>{{errorTitle}}</strong> {{errorMessage}}
+</div>
+
+<form>
+  <div class="form-group">
+    <label for="email">Email address</label>
+    <input [(ngModel)]="email" name="email" type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
+    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+  </div>
+  <div class="form-group">
+    <label for="username">Username</label>
+    <input [(ngModel)]="username" name="username" type="text" class="form-control" id="username" aria-describedby="usernameHelp" placeholder="Enter username">
+  </div>
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input [(ngModel)]="password" name="password" type="password" class="form-control" id="password" placeholder="Password">
+  </div>
+  <div class="form-group">
+    <label for="password2">Password</label>
+    <input [(ngModel)]="password2" name="password2" type="password" class="form-control" id="password2" placeholder="Confirm Password">
+  </div>
+  <button (click)="register()" class="btn btn-primary">Login</button>
+</form>
