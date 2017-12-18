@@ -127,7 +127,7 @@ export class BlogPostService {
   */
   public list (account_id?: string) : Promise<BlogPost[]> {
     return new Promise((resolve, reject) => {
-      
+
       let url = this.url;
       if (account_id)
         url += ('?account_id=' + account_id);

@@ -14,6 +14,7 @@ import { LoginFormComponent } from './login-form/login-form.component';
 import { RegisterFormComponent } from './register-form/register-form.component';
 import { LogoutConfirmationComponent } from './logout-confirmation/logout-confirmation.component';
 import { AccountComponent } from './account/account.component';
+import { BlogPostComponent } from './blog-post/blog-post.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { AccountComponent } from './account/account.component';
     LoginFormComponent,
     RegisterFormComponent,
     LogoutConfirmationComponent,
-    AccountComponent
+    AccountComponent,
+    BlogPostComponent
   ],
   imports: [
     BrowserModule, HttpClientModule, AppRoutingModule, FormsModule

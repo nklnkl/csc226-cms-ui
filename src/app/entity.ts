@@ -22,11 +22,11 @@ export class Entity {
   }
 
   public getCreatedString () : string {
-    return Moment(this.created).format("dddd, MMMM Do YYYY, h:mm a");
+    return Moment(this.created * 1000).format("dddd, MMMM Do YYYY, h:mm a");
   }
 
   public getUpdatedString () : string {
-    return Moment(this.updated).format("dddd, MMMM Do YYYY, h:mm a");
+    return Moment(this.updated * 1000).format("dddd, MMMM Do YYYY, h:mm a");
   }
 
   public getId () : string {

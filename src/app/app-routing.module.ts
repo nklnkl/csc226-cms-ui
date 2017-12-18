@@ -7,9 +7,11 @@ import { LoginFormComponent } from './login-form/login-form.component';
 import { RegisterFormComponent } from './register-form/register-form.component';
 import { LogoutConfirmationComponent } from './logout-confirmation/logout-confirmation.component';
 import { AccountComponent } from './account/account.component';
+import { BlogPostComponent } from './blog-post/blog-post.component';
 
 const routes: Routes = [
   { path: 'blog-posts', component: BlogPostsComponent },
+  { path: 'blog-post/:id', component: BlogPostComponent },
   { path: 'login', component: LoginFormComponent },
   { path: 'register', component: RegisterFormComponent },
   { path: 'logout', component: LogoutConfirmationComponent },

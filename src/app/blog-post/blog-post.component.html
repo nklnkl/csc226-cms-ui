@@ -1,0 +1,10 @@
+<article class="container" *ngIf="blogPost">
+  <div class="jumbotron">
+    <h1 class="display-3">{{blogPost.getTitle()}}</h1>
+    <p class="lead btn btn-primary author" *ngIf="account" routerLink="/account/{{account.getId()}}">{{account.getUsername()}}</p>
+    <p class="lead-3">posted {{blogPost.getCreatedString()}}</p>
+    <p class="lead-3">updated {{blogPost.getUpdatedString()}}</p>
+    <hr class="my-4">
+    <p>{{blogPost.getBody()}}</p>
+  </div>
+</article>
