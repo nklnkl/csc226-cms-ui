@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse, HttpErrorResponse } from '@angular/common/http';
+
 import { Observable } from 'rxjs/Observable';
-import { catchError, map, tap } from 'rxjs/operators';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/throw';
 import { Account } from './account';
 
 interface iAccount {
@@ -32,9 +35,8 @@ export class AccountService {
       2: duplicate error
       3: server error
   */
-  public register (email: string, username: string, password: string) : Promise<number> {
+  public register (email: string, username: string, password: string): Promise<number> {
     return new Promise((resolve, reject) => {
-
       let url: string = this.url;
       let body: any = {
         email: email,
@@ -42,7 +44,7 @@ export class AccountService {
         password: password
       }
       let headers: HttpHeaders = new HttpHeaders();
-      headers.append('Content-Type','application/json');
+      headers = headers.append('Content-Type','application/json');
       let httpOptions: any = {
         headers: headers,
         observe: 'response',
@@ -52,22 +54,19 @@ export class AccountService {
       this.http.post<iAccount>(url, body, httpOptions)
       .subscribe(
         (res: HttpResponse<iAccount>) => {
-          resolve(0)
+          resolve(0);
         },
         (err: HttpErrorResponse) => {
           switch (err.status) {
             case 422:
-              reject(1);
-              break;
+              return reject(1);
             case 409:
-              reject(2);
-              break;
+              return reject(2);
             default:
-              reject(3);
+              return reject(3);
           }
         }
       );
-
     });
   }
 
@@ -84,11 +83,11 @@ export class AccountService {
 
       let url: string = this.url + '/' + id;
       let headers: HttpHeaders = new HttpHeaders();
-      headers.append('Content-Type','application/json');
+      headers = headers = headers.append('Content-Type','application/json');
       if (localStorage.getItem('account_id'))
-        headers.append('account_id', localStorage.getItem('account_id'));
+        headers = headers = headers.append('account_id', localStorage.getItem('account_id'));
       if (localStorage.getItem('session_id'))
-        headers.append('session_id', localStorage.getItem('session_id'));
+        headers = headers = headers.append('session_id', localStorage.getItem('session_id'));
       let httpOptions: any = {
         headers: headers,
         observe: 'response',
@@ -148,11 +147,11 @@ export class AccountService {
         body.status = update.status;
 
       let headers: HttpHeaders = new HttpHeaders();
-      headers.append('Content-Type','application/json');
+      headers = headers = headers.append('Content-Type','application/json');
       if (localStorage.getItem('account_id'))
-        headers.append('account_id', localStorage.getItem('account_id'));
+        headers = headers = headers.append('account_id', localStorage.getItem('account_id'));
       if (localStorage.getItem('session_id'))
-        headers.append('session_id', localStorage.getItem('session_id'));
+        headers = headers = headers.append('session_id', localStorage.getItem('session_id'));
       let httpOptions: any = {
         headers: headers,
         observe: 'response',
@@ -202,11 +201,11 @@ export class AccountService {
       let url: string = this.url + '/' + id;
 
       let headers: HttpHeaders = new HttpHeaders();
-      headers.append('Content-Type','application/json');
+      headers = headers = headers.append('Content-Type','application/json');
       if (localStorage.getItem('account_id'))
-        headers.append('account_id', localStorage.getItem('account_id'));
+        headers = headers = headers.append('account_id', localStorage.getItem('account_id'));
       if (localStorage.getItem('session_id'))
-        headers.append('session_id', localStorage.getItem('session_id'));
+        headers = headers = headers.append('session_id', localStorage.getItem('session_id'));
       let httpOptions: any = {
         headers: headers,
         observe: 'response',
@@ -257,11 +256,11 @@ export class AccountService {
       if (page)
         url += ('&page' + page);
       let headers: HttpHeaders = new HttpHeaders();
-      headers.append('Content-Type','application/json');
+      headers = headers.append('Content-Type','application/json');
       if (localStorage.getItem('account_id'))
-        headers.append('account_id', localStorage.getItem('account_id'));
+        headers = headers.append('account_id', localStorage.getItem('account_id'));
       if (localStorage.getItem('session_id'))
-        headers.append('session_id', localStorage.getItem('session_id'));
+        headers = headers.append('session_id', localStorage.getItem('session_id'));
       let httpOptions: any = {
         headers: headers,
         observe: 'response',

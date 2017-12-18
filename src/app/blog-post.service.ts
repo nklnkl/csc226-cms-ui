@@ -36,11 +36,11 @@ export class BlogPostService {
     return new Promise((resolve, reject) => {
 
       let headers: HttpHeaders = new HttpHeaders();
-      headers.append('Content-Type','application/json');
+      headers = headers.append('Content-Type','application/json');
       if (localStorage.getItem('account_id'))
-        headers.append('account_id', localStorage.getItem('account_id'));
+        headers = headers.append('account_id', localStorage.getItem('account_id'));
       if (localStorage.getItem('session_id'))
-        headers.append('session_id', localStorage.getItem('session_id'));
+        headers = headers.append('session_id', localStorage.getItem('session_id'));
       let httpOptions: any = {
         headers: headers,
         observe: 'response',
@@ -85,11 +85,11 @@ export class BlogPostService {
     return new Promise((resolve, reject) => {
       let url: string = this.url + '/' + id;
       let headers: HttpHeaders = new HttpHeaders();
-      headers.append('Content-Type','application/json');
+      headers = headers.append('Content-Type','application/json');
       if (localStorage.getItem('account_id'))
-        headers.append('account_id', localStorage.getItem('account_id'));
+        headers = headers.append('account_id', localStorage.getItem('account_id'));
       if (localStorage.getItem('session_id'))
-        headers.append('session_id', localStorage.getItem('session_id'));
+        headers = headers.append('session_id', localStorage.getItem('session_id'));
       let httpOptions: any = {
         headers: headers,
         observe: 'response',
@@ -133,11 +133,11 @@ export class BlogPostService {
         url += ('?account_id=' + account_id);
 
       let headers: HttpHeaders = new HttpHeaders();
-      headers.append('Content-Type','application/json');
+      headers = headers.append('Content-Type','application/json');
       if (localStorage.getItem('account_id'))
-        headers.append('account_id', localStorage.getItem('account_id'));
+        headers = headers.append('account_id', localStorage.getItem('account_id'));
       if (localStorage.getItem('session_id'))
-        headers.append('session_id', localStorage.getItem('session_id'));
+        headers = headers.append('session_id', localStorage.getItem('session_id'));
       let httpOptions: any = {
         headers: headers,
         observe: 'response',
