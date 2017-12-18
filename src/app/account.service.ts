@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Account } from './account';
@@ -49,13 +49,13 @@ export class AccountService {
         responseType: 'json'
       };
 
-      this.http.post<iAccount>(url, body, httpOptions).subscribe(
-
+      this.http.post<iAccount>(url, body, httpOptions)
+      .subscribe(
         (res: HttpResponse<iAccount>) => {
-          switch (res.status) {
-            case 200:
-              resolve(0);
-              break;
+          resolve(0)
+        },
+        (err: HttpErrorResponse) => {
+          switch (err.status) {
             case 422:
               reject(1);
               break;
@@ -66,8 +66,8 @@ export class AccountService {
               reject(3);
           }
         }
-
       );
+
     });
   }
 
@@ -95,12 +95,14 @@ export class AccountService {
         responseType: 'json'
       };
 
-      this.http.get<iAccount>(url, httpOptions).subscribe(
-
+      this.http.get<iAccount>(url, httpOptions)
+      .subscribe(
         (res: HttpResponse<iAccount>) => {
-          switch (res.status) {
+          resolve(new Account(res.body));
+        },
+        (err: HttpErrorResponse) => {
+          switch (err.status) {
             case 200:
-              resolve(new Account(res.body));
               break;
             case 404:
               reject(1);
@@ -112,8 +114,8 @@ export class AccountService {
               reject(3);
           }
         }
-
       );
+
     });
   }
 
@@ -157,13 +159,13 @@ export class AccountService {
         responseType: 'json'
       };
 
-      this.http.patch<iAccount>(url, body, httpOptions).subscribe(
-
+      this.http.patch<iAccount>(url, body, httpOptions)
+      .subscribe(
         (res: HttpResponse<iAccount>) => {
-          switch (res.status) {
-            case 200:
-              resolve(0);
-              break;
+          resolve(0);
+        },
+        (err: HttpErrorResponse) => {
+          switch (err.status) {
             case 401:
               reject(1);
               break;
@@ -180,8 +182,8 @@ export class AccountService {
               reject(5);
           }
         }
-
       );
+
     });
   }
 
@@ -211,10 +213,13 @@ export class AccountService {
         responseType: 'json'
       };
 
-      this.http.delete<iAccount>(url, httpOptions).subscribe(
-
+      this.http.delete<iAccount>(url, httpOptions)
+      .subscribe(
         (res: HttpResponse<iAccount>) => {
-          switch (res.status) {
+          resolve(0);
+        },
+        (err: HttpErrorResponse) => {
+          switch (err.status) {
             case 200:
               resolve(0);
               break;
@@ -231,8 +236,8 @@ export class AccountService {
               reject(4);
           }
         }
-
       );
+
     });
   }
 
@@ -263,17 +268,17 @@ export class AccountService {
         responseType: 'json'
       };
 
-      this.http.get<iAccount[]>(url, httpOptions).subscribe(
-
+      this.http.get<iAccount[]>(url, httpOptions)
+      .subscribe(
         (res: HttpResponse<iAccount[]>) => {
-          switch (res.status) {
-            case 200:
-              let accounts: Account[] = [];
-              res.body.forEach((account: iAccount) => {
-                accounts.push(new Account(account));
-              })
-              resolve(accounts);
-              break;
+          let accounts: Account[] = [];
+          res.body.forEach((account: iAccount) => {
+            accounts.push(new Account(account));
+          })
+          resolve(accounts);
+        },
+        (err: HttpErrorResponse) => {
+          switch (err.status) {
             case 404:
               reject(1);
               break;
@@ -281,8 +286,8 @@ export class AccountService {
               reject(2);
           }
         }
-
       );
+
     });
   }
 }

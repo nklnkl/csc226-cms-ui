@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { catchError, map, tap } from 'rxjs/operators';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
 import { Session } from './session';
 
 interface SessionBody {
-  id?: string;
+  session_id?: string;
   created?: number;
   updated?: number;
   account_id?: string;
@@ -14,7 +16,7 @@ interface SessionBody {
 @Injectable()
 export class SessionService {
 
-  private url: string = 'http://45.55.65.220:10010/api/account';
+  private url: string = 'http://45.55.65.220:10010/api/session';
 
   constructor(private http: HttpClient) { }
 
@@ -28,7 +30,6 @@ export class SessionService {
   */
   public register (email: string, password: string) : Promise<number> {
     return new Promise((resolve, reject) => {
-
       let body: any = {
         email: email,
         password: password
@@ -42,27 +43,25 @@ export class SessionService {
         responseType: 'json'
       };
 
-      this.http.post<SessionBody>(this.url, body, httpOptions).subscribe(
-
+      this.http.post<SessionBody>(this.url, body, httpOptions)
+      .subscribe(
         (res: HttpResponse<SessionBody>) => {
-          switch (res.status) {
-            case 200:
-              localStorage.setItem('account_id', res.body.account_id);
-              localStorage.setItem('session_id', res.body.id);
-              resolve(0);
-              break;
+          localStorage.setItem('account_id', res.body.account_id);
+          localStorage.setItem('session_id', res.body.session_id);
+          resolve(0)
+        },
+        (err: HttpErrorResponse) => {
+          switch (err.status) {
             case 401:
-              reject(1);
-              break;
+              return reject(1);
             case 403:
-              reject(2);
-              break;
+              return reject(2);
             default:
-              reject(3);
+              return reject(3);
           }
         }
-
       );
+
     });
   }
 
@@ -76,28 +75,29 @@ export class SessionService {
       4: server error
   */
   public delete (id: string) : Promise<number> {
-    let url: string = this.url + '/' + id;
-
-    let headers: HttpHeaders = new HttpHeaders();
-    headers.append('Content-Type','application/json');
-    if (localStorage.getItem('account_id'))
-      headers.append('account_id', localStorage.getItem('account_id'));
-    if (localStorage.getItem('session_id'))
-      headers.append('session_id', localStorage.getItem('session_id'));
-    let httpOptions: any = {
-      headers: headers,
-      observe: 'response',
-      responseType: 'json'
-    };
-
     return new Promise((resolve, reject) => {
-      this.http.delete<SessionBody>(url, httpOptions).subscribe(
 
+      let url: string = this.url + '/' + id;
+
+      let headers: HttpHeaders = new HttpHeaders();
+      headers.append('Content-Type','application/json');
+      if (localStorage.getItem('account_id'))
+        headers.append('account_id', localStorage.getItem('account_id'));
+      if (localStorage.getItem('session_id'))
+        headers.append('session_id', localStorage.getItem('session_id'));
+      let httpOptions: any = {
+        headers: headers,
+        observe: 'response',
+        responseType: 'json'
+      };
+      
+      this.http.delete<SessionBody>(url, httpOptions)
+      .subscribe(
         (res: HttpResponse<SessionBody>) => {
-          switch (res.status) {
-            case 200:
-              resolve(0);
-              break;
+          resolve(0)
+        },
+        (err: HttpErrorResponse) => {
+          switch (err.status) {
             case 401:
               reject(1);
               break;
@@ -111,8 +111,8 @@ export class SessionService {
               reject(4);
           }
         }
-
       );
+
     });
   }
 
