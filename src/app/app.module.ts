@@ -17,6 +17,8 @@ import { AccountComponent } from './account/account.component';
 import { BlogPostComponent } from './blog-post/blog-post.component';
 import { HomeComponent } from './home/home.component';
 import { AccountUpdateComponent } from './account-update/account-update.component';
+import { BlogPostFormComponent } from './blog-post-form/blog-post-form.component';
+import { BlogPostUpdateFormComponent } from './blog-post-update-form/blog-post-update-form.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { AccountUpdateComponent } from './account-update/account-update.componen
     AccountComponent,
     BlogPostComponent,
     HomeComponent,
-    AccountUpdateComponent
+    AccountUpdateComponent,
+    BlogPostFormComponent,
+    BlogPostUpdateFormComponent
   ],
   imports: [
     BrowserModule, HttpClientModule, AppRoutingModule, FormsModule
