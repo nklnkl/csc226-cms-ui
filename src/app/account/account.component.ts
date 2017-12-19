@@ -22,6 +22,8 @@ export class AccountComponent implements OnInit {
   private errorTitle: string;
   private errorMessage: string;
 
+  private canUpdate: boolean;
+
   constructor(
     private route: ActivatedRoute,
     private accountService: AccountService,
@@ -34,17 +36,30 @@ export class AccountComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.canUpdate = false;
     this.error = false;
-    this.getAccount();
-    this.getBlogPosts();
-    this.getComments();
+    this.getAccount(this.route.snapshot.paramMap.get('id'));
+    this.getBlogPosts(this.route.snapshot.paramMap.get('id'));
+    this.getComments(this.route.snapshot.paramMap.get('id'));
+
+    this.route.params.subscribe((params) => {
+      let id: string = params['id'];
+      this.getAccount(id);
+      this.getBlogPosts(id);
+      this.getComments(id);
+    });
   }
 
-  private getAccount () : void {
-    this.accountService.retrieve(this.route.snapshot.paramMap.get('id'))
+  private getAccount (id: string) : void {
+    this.accountService.retrieve(id)
     .then((account: Account) => {
       this.error = false;
       this.account = account;
+      // If account is owned or client is admin, show update nav link.
+      if (localStorage.getItem('account_id') == this.account.getId())
+        this.canUpdate = true;
+      else
+        this.canUpdate = false;
     })
     .catch((err: number) => {
       this.error = true;
@@ -64,17 +79,35 @@ export class AccountComponent implements OnInit {
     });
   }
 
-  private getBlogPosts () : void {
-    this.blogPostService.list(this.route.snapshot.paramMap.get('id'))
+  private getBlogPosts (id: string) : void {
+    this.blogPosts = [];
+    this.blogPostService.list(id)
     .then((blogPosts: BlogPost[]) => {
       this.blogPosts = blogPosts;
+    })
+    .catch((err: number) => {
+      switch (err) {
+        case 1:
+          console.log('no blog posts found for ' + id);
+          break;
+        default:
+      }
     });
   }
 
-  private getComments () : void {
-    this.commentService.listByAccount(this.route.snapshot.paramMap.get('id'))
+  private getComments (id: string) : void {
+    this.comments = [];
+    this.commentService.listByAccount(id)
     .then((comments: Comment[]) => {
       this.comments = comments;
+    })
+    .catch((err: number) => {
+      switch (err) {
+        case 1:
+          console.log('no comments found for ' + id);
+          break;
+        default:
+      }
     });
   }
 

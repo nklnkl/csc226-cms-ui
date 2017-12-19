@@ -3,7 +3,11 @@
     <strong>{{errorTitle}}</strong> {{errorMessage}}
   </div>
 
-  <h2>{{account.getUsername()}} <span class="badge badge-secondary">{{ account.getRoleString() }}</span></h2>
+  <h2>
+    {{account.getUsername()}}
+    <span class="badge badge-secondary">{{ account.getRoleString() }}</span>
+    <button *ngIf="canUpdate" routerLink="/account/update/{{account.getId()}}" type="button" class="btn btn-dark update">Update</button>
+  </h2>
   <label class="location">Location: {{account.getLocation()}}</label>
   <p>{{account.getBio()}}</p>
 </section>
