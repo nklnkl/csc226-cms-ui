@@ -32,7 +32,7 @@ export class BlogPostService {
       4: duplicated account title for account
       5: server error
   */
-  public submit (title: string, body: string, privacy: string) : Promise<BlogPost> {
+  public submit (title: string, body: string, privacy: number) : Promise<number> {
     return new Promise((resolve, reject) => {
 
       let headers: HttpHeaders = new HttpHeaders();
@@ -47,7 +47,13 @@ export class BlogPostService {
         responseType: 'json'
       };
 
-      this.http.post<HttpResponse<iBlogPost>>(this.url, httpOptions)
+      let data: any = {
+        title: title,
+        body: body,
+        privacy: privacy
+      };
+
+      this.http.post<iBlogPost>(this.url, data, httpOptions)
       .subscribe(
         (res: HttpResponse<iBlogPost>) => {
           resolve(0);
