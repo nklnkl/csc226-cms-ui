@@ -156,10 +156,10 @@ export class BlogPostService {
         (err: HttpErrorResponse) => {
           switch (err.status) {
             case 404:
-              reject(0);
+              reject(1);
               break;
             default:
-              reject(1);
+              reject(2);
           }
         }
       );
