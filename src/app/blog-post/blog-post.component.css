@@ -1,3 +1,9 @@
 p.author:hover {
-  cursor: pointer;;
+  cursor: pointer;
+}
+button.update {
+  float: right;
+}
+button.update:hover {
+  cursor: pointer;
 }

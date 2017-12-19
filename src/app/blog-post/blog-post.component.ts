@@ -17,6 +17,7 @@ export class BlogPostComponent implements OnInit {
 
   private blogPost: BlogPost;
   private account: Account;
+  private canUpdate: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -33,6 +34,10 @@ export class BlogPostComponent implements OnInit {
     this.blogPostService.retrieve(this.route.snapshot.paramMap.get('id'))
     .then((blogPost: BlogPost) => {
       this.blogPost = blogPost;
+      if (this.blogPost.getAccountId() == localStorage.getItem('account_id'))
+        this.canUpdate = true;
+      else
+        this.canUpdate = false;
     })
     .then(() => this.accountService.retrieve(this.blogPost.getAccountId()))
     .then((account: Account) => {
