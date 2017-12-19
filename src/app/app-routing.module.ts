@@ -8,14 +8,18 @@ import { RegisterFormComponent } from './register-form/register-form.component';
 import { LogoutConfirmationComponent } from './logout-confirmation/logout-confirmation.component';
 import { AccountComponent } from './account/account.component';
 import { BlogPostComponent } from './blog-post/blog-post.component';
+import { HomeComponent } from './home/home.component';
+import { AccountUpdateComponent } from './account-update/account-update.component';
 
 const routes: Routes = [
+  { path: 'home', component: HomeComponent },
   { path: 'blog-posts', component: BlogPostsComponent },
   { path: 'blog-post/:id', component: BlogPostComponent },
   { path: 'login', component: LoginFormComponent },
-  { path: 'register', component: RegisterFormComponent },
   { path: 'logout', component: LogoutConfirmationComponent },
-  { path: 'account/:id', component: AccountComponent }
+  { path: 'register', component: RegisterFormComponent },
+  { path: 'account/:id', component: AccountComponent },
+  { path: 'account/update/:id', component: AccountUpdateComponent }
 ];
 
 @NgModule({
