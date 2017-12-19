@@ -32,7 +32,7 @@ export class BlogPostService {
       4: duplicated account title for account
       5: server error
   */
-  public submit (title: string, body: string, privacy: number) : Promise<number> {
+  public submit (title: string, body: string, privacy: number) : Promise<string> {
     return new Promise((resolve, reject) => {
 
       let headers: HttpHeaders = new HttpHeaders();
@@ -56,7 +56,7 @@ export class BlogPostService {
       this.http.post<iBlogPost>(this.url, data, httpOptions)
       .subscribe(
         (res: HttpResponse<iBlogPost>) => {
-          resolve(0);
+          resolve(res.body.id);
         },
         (err: HttpErrorResponse) => {
           switch (err.status) {
@@ -117,6 +117,66 @@ export class BlogPostService {
               break;
             default:
               reject(3);
+          }
+        }
+      );
+
+    });
+  }
+
+  /*
+    success:
+      0
+    failure
+      1: unauthorized
+      2: account is inactive
+      3: blog post not found and not updated
+      4: duplicated account title for blog post
+      5: server error
+  */
+  public update (id: string, title: string, body: string, privacy: number) : Promise<number> {
+    return new Promise((resolve, reject) => {
+
+      let url: string = this.url + '/' + id;
+
+      let headers: HttpHeaders = new HttpHeaders();
+      headers = headers.append('Content-Type','application/json');
+      if (localStorage.getItem('account_id'))
+        headers = headers.append('account_id', localStorage.getItem('account_id'));
+      if (localStorage.getItem('session_id'))
+        headers = headers.append('session_id', localStorage.getItem('session_id'));
+      let httpOptions: any = {
+        headers: headers,
+        observe: 'response',
+        responseType: 'json'
+      };
+
+      let data: any = {
+        title: title,
+        body: body,
+        privacy: privacy
+      };
+
+      this.http.patch<iBlogPost>(url, data, httpOptions)
+      .subscribe(
+        (res: HttpResponse<iBlogPost>) => {
+          resolve(0);
+        },
+        (err: HttpErrorResponse) => {
+          switch (err.status) {
+            case 401:
+              reject(1);
+              break;
+            case 403:
+              reject(2);
+              break;
+            case 404:
+              reject(3);
+              break;
+            case 409:
+              reject(4);
+            default:
+              reject(5);
           }
         }
       );

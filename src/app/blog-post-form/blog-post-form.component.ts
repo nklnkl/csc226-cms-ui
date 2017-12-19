@@ -29,8 +29,8 @@ export class BlogPostFormComponent implements OnInit {
 
   private submit () {
     this.blogPostService.submit(this.title, this.body, this.privacy)
-    .then((result: number) => {
-      this.router.navigate(['/blog-post/update/testId']);
+    .then((id: string) => {
+      this.router.navigate(['/blog-post/update/' + id]);
     })
     .catch((err: number) => {
       this.error = true;
