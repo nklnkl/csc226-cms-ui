@@ -9,13 +9,13 @@
         <a routerLink="/blog-posts" class="nav-link">Blog Posts</a>
       </li>
       <li class="nav-item">
-        <a routerLink="/login" class="nav-link">Login</a>
+        <a routerLink="/login" class="nav-link" *ngIf="!session">Login</a>
       </li>
       <li class="nav-item">
-        <a routerLink="/register" class="nav-link">Register</a>
+        <a routerLink="/register" class="nav-link" *ngIf="!session">Register</a>
       </li>
       <li class="nav-item">
-        <a routerLink="/logout" class="nav-link" >Logout</a>
+        <a routerLink="/logout" class="nav-link"  *ngIf="session">Logout</a>
       </li>
     </ul>
   </div>

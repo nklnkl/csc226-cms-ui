@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { catchError, map, tap } from 'rxjs/operators';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -18,7 +19,15 @@ export class SessionService {
 
   private url: string = 'http://45.55.65.220:10010/api/session';
 
-  constructor(private http: HttpClient) { }
+  public session: BehaviorSubject<boolean>;
+
+  constructor(private http: HttpClient) {
+    this.session = new BehaviorSubject<boolean>(false);
+    if (localStorage.getItem('session_id') && localStorage.getItem('account_id'))
+      this.session.next(true);
+    else
+      this.session.next(false);
+  }
 
   /*
     success:
@@ -28,7 +37,7 @@ export class SessionService {
       2: account inactive
       3: server error
   */
-  public register (email: string, password: string) : Promise<number> {
+  public register (email: string, password: string) : Promise<Session> {
     return new Promise((resolve, reject) => {
       let body: any = {
         email: email,
@@ -46,9 +55,10 @@ export class SessionService {
       this.http.post<SessionBody>(this.url, body, httpOptions)
       .subscribe(
         (res: HttpResponse<SessionBody>) => {
-          localStorage.setItem('account_id', res.body.account_id);
-          localStorage.setItem('session_id', res.body.session_id);
-          resolve(0)
+          let session: Session = new Session();
+          session.setId(res.body.session_id);
+          session.setAccountId(res.body.account_id);
+          resolve(session);
         },
         (err: HttpErrorResponse) => {
           switch (err.status) {
@@ -94,7 +104,7 @@ export class SessionService {
       this.http.delete<SessionBody>(url, httpOptions)
       .subscribe(
         (res: HttpResponse<SessionBody>) => {
-          resolve(0)
+          resolve(0);
         },
         (err: HttpErrorResponse) => {
           switch (err.status) {

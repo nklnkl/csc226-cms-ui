@@ -30,6 +30,7 @@ export class LogoutConfirmationComponent implements OnInit {
         this.error = false;
         localStorage.removeItem('account_id');
         localStorage.removeItem('session_id');
+        this.sessionService.session.next(false);
         this.router.navigate(['/blog-posts']);
       })
       .catch((err: number) => {

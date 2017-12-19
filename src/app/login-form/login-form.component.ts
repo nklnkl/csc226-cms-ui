@@ -4,6 +4,7 @@ import { NgIf } from '@angular/common';
 import { Router } from '@angular/router';
 
 import { SessionService } from '../session.service';
+import { Session } from '../session';
 
 @Component({
   selector: 'app-login-form',
@@ -30,8 +31,11 @@ export class LoginFormComponent implements OnInit {
 
   private login () {
     this.sessionService.register(this.email, this.password)
-    .then((result: number) => {
+    .then((result: Session) => {
       this.error = false;
+      localStorage.setItem('account_id', result.getAccountId());
+      localStorage.setItem('session_id', result.getId());
+      this.sessionService.session.next(true);
       this.router.navigate(['/blog-posts']);
     })
     .catch((result: number) => {

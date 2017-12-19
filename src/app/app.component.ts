@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { SessionService } from './session.service';
 
 @Component({
   selector: 'app-root',
@@ -6,8 +7,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app';
 
-  constructor() {
+  private session: boolean;
+
+  constructor(
+    private sessionService: SessionService
+  ) {
+    this.sessionService.session.subscribe(
+      (session: boolean) => { this.session = session; }
+    );
   }
 }
