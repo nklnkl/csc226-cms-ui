@@ -13,7 +13,8 @@ p {
   border-radius: 5px;
 }
 h4.card-title {
-  height: 70px;
+  height: 60px;
+  overflow: hidden
 }
 p.card-text {
   height: 240px;

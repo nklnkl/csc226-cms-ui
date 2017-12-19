@@ -129,7 +129,7 @@ export class BlogPostService {
       0
     failure
       1: unauthorized
-      2: account is inactive
+      2: client is not owner or admin
       3: blog post not found and not updated
       4: duplicated account title for blog post
       5: server error
@@ -177,6 +177,58 @@ export class BlogPostService {
               reject(4);
             default:
               reject(5);
+          }
+        }
+      );
+
+    });
+  }
+
+  /*
+    success:
+      0
+    failure
+      1: unauthorized
+      2: client is not owner or admin
+      3: blog post not found
+      4: duplicated account title for blog post
+      5: server error
+  */
+  public delete (id: string) : Promise<number> {
+    return new Promise((resolve, reject) => {
+
+      let url: string = this.url + '/' + id;
+
+      let headers: HttpHeaders = new HttpHeaders();
+      headers = headers.append('Content-Type','application/json');
+      if (localStorage.getItem('account_id'))
+        headers = headers.append('account_id', localStorage.getItem('account_id'));
+      if (localStorage.getItem('session_id'))
+        headers = headers.append('session_id', localStorage.getItem('session_id'));
+      let httpOptions: any = {
+        headers: headers,
+        observe: 'response',
+        responseType: 'json'
+      };
+
+      this.http.delete<iBlogPost>(url, httpOptions)
+      .subscribe(
+        (res: HttpResponse<iBlogPost>) => {
+          resolve(0);
+        },
+        (err: HttpErrorResponse) => {
+          switch (err.status) {
+            case 401:
+              reject(1);
+              break;
+            case 403:
+              reject(2);
+              break;
+            case 404:
+              reject(3);
+              break;
+            default:
+              reject(4);
           }
         }
       );

@@ -1,0 +1,10 @@
+textarea {
+  min-height: 400px;
+  resize: none;
+}
+button:hover {
+  cursor: pointer;
+}
+button.delete {
+  float: right;
+}

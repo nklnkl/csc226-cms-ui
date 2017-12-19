@@ -55,7 +55,7 @@ export class BlogPostFormComponent implements OnInit {
           this.errorTitle = 'Server error!';
           this.errorMessage = 'A server error has occured, please try again later.';
       }
-    })
+    });
   }
 
 }
