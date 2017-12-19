@@ -1,3 +1,35 @@
-<p>
-  account-update works!
-</p>
+<div class="alert alert-danger" role="alert" *ngIf="error">
+  <strong>{{errorTitle}}</strong> {{errorMessage}}
+</div>
+
+<form class="container">
+  <h2>Account Update</h2>
+  <hr/>
+  <div class="form-group">
+    <label for="email">Email address</label>
+    <input [(ngModel)]="email" name="email" type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
+    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+  </div>
+  <div class="form-group">
+    <label for="username">Username</label>
+    <input [(ngModel)]="username" name="username" type="text" class="form-control" id="username" aria-describedby="usernameHelp" placeholder="Enter username">
+  </div>
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input [(ngModel)]="password" name="password" type="password" class="form-control" id="password" placeholder="Password">
+    <small id="passwordHelp" class="form-text text-muted">Your password will only be updated if you enter a new one.</small>
+  </div>
+  <div class="form-group">
+    <label for="password2">Password</label>
+    <input [(ngModel)]="password2" name="password2" type="password" class="form-control" id="password2" placeholder="Confirm Password">
+  </div>
+  <div class="form-group">
+    <label for="location">Location</label>
+    <input [(ngModel)]="location" name="location" type="text" class="form-control" id="location" aria-describedby="locationHelp" placeholder="Enter location">
+  </div>
+  <div class="form-group">
+    <label for="bio">Bio</label>
+    <textarea [(ngModel)]="bio" name="bio" type="text" class="form-control" id="bio" aria-describedby="bioHelp" placeholder="Enter bio"></textarea>
+  </div>
+  <button (click)="update()" class="btn btn-primary">Update</button>
+</form>
