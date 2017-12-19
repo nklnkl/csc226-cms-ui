@@ -2,7 +2,9 @@
   <strong>{{errorTitle}}</strong> {{errorMessage}}
 </div>
 
-<form>
+<form class="container">
+  <h2>Login</h2>
+  <hr/>
   <div class="form-group">
     <label for="email">Email address</label>
     <input [(ngModel)]="email" name="email" type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
@@ -13,4 +15,6 @@
     <input [(ngModel)]="password" name="password" type="password" class="form-control" id="password" placeholder="Password">
   </div>
   <button (click)="login()" class="btn btn-primary">Login</button>
+  <hr/>
+  <button routerLink="/register" class="btn btn-primary">I don't have an account</button>
 </form>
