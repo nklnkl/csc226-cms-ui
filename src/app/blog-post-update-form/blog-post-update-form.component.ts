@@ -30,6 +30,7 @@ export class BlogPostUpdateFormComponent implements OnInit {
 
   ngOnInit() {
     this.getBlogPost(this.route.snapshot.paramMap.get('id'));
+    this.error = false;
   }
 
   private getBlogPost (id: string) : void {

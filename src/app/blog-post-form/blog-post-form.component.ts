@@ -24,6 +24,7 @@ export class BlogPostFormComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.error = false;
     this.privacy = 1;
   }
 

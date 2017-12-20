@@ -6,6 +6,7 @@ import { BlogPostService } from '../blog-post.service';
 import { CommentService } from '../comment.service';
 import { Account } from '../account';
 import { BlogPost } from '../blog-post';
+import { Comment } from '../comment';
 
 @Component({
   selector: 'app-account',
@@ -15,8 +16,8 @@ import { BlogPost } from '../blog-post';
 export class AccountComponent implements OnInit {
 
   private account: Account;
-  private blogPosts: BlogPost [];
-  private comments: Comment [];
+  private blogPosts: Array<BlogPost>;
+  private comments: Array<Comment>;
 
   private error: boolean;
   private errorTitle: string;
@@ -31,8 +32,8 @@ export class AccountComponent implements OnInit {
     private commentService: CommentService
   ) {
     this.account = new Account();
-    this.blogPosts = [];
-    this.comments = [];
+    this.blogPosts = new Array<BlogPost>();
+    this.comments = new Array<Comment>();
   }
 
   ngOnInit() {
@@ -80,7 +81,7 @@ export class AccountComponent implements OnInit {
   }
 
   private getBlogPosts (id: string) : void {
-    this.blogPosts = [];
+    this.blogPosts = new Array<BlogPost>();
     this.blogPostService.list(id)
     .then((blogPosts: BlogPost[]) => {
       this.blogPosts = blogPosts;
@@ -96,7 +97,7 @@ export class AccountComponent implements OnInit {
   }
 
   private getComments (id: string) : void {
-    this.comments = [];
+    this.comments = new Array<Comment>();
     this.commentService.listByAccount(id)
     .then((comments: Comment[]) => {
       this.comments = comments;

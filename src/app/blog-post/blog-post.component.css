@@ -7,3 +7,17 @@ button.update {
 button.update:hover {
   cursor: pointer;
 }
+textarea {
+  min-height: 150px;
+  resize: none;
+}
+form.comment {
+  margin-bottom: 80px;
+}
+small.comment-author:hover {
+  cursor: pointer;
+}
+div.page-buttons {
+  text-align: center;
+  width: 100%;
+}
