@@ -20,12 +20,15 @@
 
     <form class="col-sm-12 col-md-6 comment">
       <h3>Write a comment</h3>
-      <div class="form-group">
+      <div *ngIf="clientAccountId" class="form-group">
         <textarea [(ngModel)]="body" name="body" type="text" class="form-control" id="body" aria-describedby="bodyHelp" placeholder="Enter comment"></textarea>
       </div>
-      <button (click)="submit()" class="btn btn-primary">Submit</button>
+      <button *ngIf="clientAccountId" (click)="submit()" class="btn btn-primary">Submit</button>
       <div class="alert alert-danger" role="alert" *ngIf="error">
         <strong>{{errorTitle}}</strong> {{errorMessage}}
+      </div>
+      <div *ngIf="!clientAccountId" class="alert alert-warning" role="alert">
+        You must be logged in to submit a comment.
       </div>
     </form>
 
@@ -41,8 +44,8 @@
       </div>
 
       <div *ngIf="commentAuthorsLoaded == true" class="btn-group page-buttons" role="group" aria-label="Basic example">
-        <button (click)="previous()" type="button" class="btn btn-secondary">previous page</button>
-        <button (click)="next()" type="button" class="btn btn-secondary">next page</button>
+        <button (click)="previous()" type="button" class="btn btn-secondary page-button">previous page</button>
+        <button (click)="next()" type="button" class="btn btn-secondary page-button">next page</button>
       </div>
 
       <ul class="list-group" *ngIf="commentAuthorsLoaded == true">
@@ -51,7 +54,14 @@
             <small class="text-muted comment-author" routerLink="/account/{{comment.getAccountId()}}">{{commentAuthors[i].getUsername()}}</small>
           </div>
           <p class="mb-1">{{ comment.getBody() }}</p>
-          <small class="text-muted">{{ comment.getCreatedString() }}</small>
+          <small class="text-muted">
+            {{ comment.getCreatedString() }}
+            <button *ngIf="comment.getAccountId() == clientAccountId"
+              routerLink="/comment/update/{{comment.getId()}}"
+              type="button" class="btn btn-warning btn-sm comment-update">
+              Update
+            </button>
+          </small>
         </li>
       </ul>
 

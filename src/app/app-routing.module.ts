@@ -12,6 +12,7 @@ import { HomeComponent } from './home/home.component';
 import { AccountUpdateComponent } from './account-update/account-update.component';
 import { BlogPostFormComponent } from './blog-post-form/blog-post-form.component';
 import { BlogPostUpdateFormComponent } from './blog-post-update-form/blog-post-update-form.component';
+import { CommentUpdateFormComponent } from './comment-update-form/comment-update-form.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -23,7 +24,8 @@ const routes: Routes = [
   { path: 'logout', component: LogoutConfirmationComponent },
   { path: 'register', component: RegisterFormComponent },
   { path: 'account/:id', component: AccountComponent },
-  { path: 'account/update/:id', component: AccountUpdateComponent }
+  { path: 'account/update/:id', component: AccountUpdateComponent },
+  { path: 'comment/update/:id', component: CommentUpdateFormComponent }
 ];
 
 @NgModule({

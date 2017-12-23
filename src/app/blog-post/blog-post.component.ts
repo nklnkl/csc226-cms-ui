@@ -16,6 +16,8 @@ import { Comment } from '../comment';
 })
 export class BlogPostComponent implements OnInit {
 
+  private clientAccountId: string;
+
   private blogPost: BlogPost;
   private blogPostAuthor: Account;
 
@@ -41,6 +43,9 @@ export class BlogPostComponent implements OnInit {
     private commentService: CommentService) { }
 
   ngOnInit() {
+    if (localStorage.getItem('account_id'))
+      this.clientAccountId = localStorage.getItem('account_id');
+
     this.blogPost = new BlogPost();
     this.comments = new Array<Comment>();
     this.commentAuthors = new Array<Account>();
