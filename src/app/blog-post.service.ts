@@ -243,12 +243,19 @@ export class BlogPostService {
       0: no blog posts found
       1: server error
   */
-  public list (account_id?: string) : Promise<BlogPost[]> {
+  public list (account_id?: string, page?: number) : Promise<BlogPost[]> {
     return new Promise((resolve, reject) => {
 
       let url = this.url;
-      if (account_id)
+      if (account_id) {
         url += ('?account_id=' + account_id);
+        if (page)
+          url += ('&page=' + page);
+      }
+      else {
+        if (page)
+          url += ('?page=' + page);
+      }
 
       let headers: HttpHeaders = new HttpHeaders();
       headers = headers.append('Content-Type','application/json');

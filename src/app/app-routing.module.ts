@@ -25,7 +25,8 @@ const routes: Routes = [
   { path: 'register', component: RegisterFormComponent },
   { path: 'account/:id', component: AccountComponent },
   { path: 'account/update/:id', component: AccountUpdateComponent },
-  { path: 'comment/update/:id', component: CommentUpdateFormComponent }
+  { path: 'comment/update/:id', component: CommentUpdateFormComponent },
+  { path: '', redirectTo: '/blog-posts', pathMatch: 'full' }
 ];
 
 @NgModule({

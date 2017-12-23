@@ -1,5 +1,21 @@
-<article *ngFor="let blogPost of blogPosts; let i = index">
-  <h2>{{blogPost.getTitle()}}</h2>
-  <a routerLink="/account/{{blogPost.getAccountId()}}">{{usernames[i]}}</a>
-  <p>{{blogPost.getBody()}}</p>
-</article>
+<h3>
+  Latest blog posts
+  <div class="btn-group page-buttons" role="group" aria-label="Basic example">
+    <button (click)="previous()" type="button" class="btn btn-secondary page-button">previous page</button>
+    <button (click)="next()" type="button" class="btn btn-secondary page-button">next page</button>
+  </div>
+</h3>
+<hr/>
+<section class="container-fluid">
+  <div class="card-group">
+    <div *ngFor="let blogPost of blogPosts; let i = index;" class="card" style="width: 20rem;">
+      <div class="card-body">
+        <h4 class="card-title">{{blogPost.getTitle()}}</h4>
+        <p class="card-text" routerLink="/account/{{blogPost.getAccountId()}}"><small class="text-muted">written by {{usernames[i]}}</small></p>
+        <p class="card-text"><small class="text-muted">posted {{blogPost.getCreatedString()}}</small></p>
+        <p class="card-text">{{blogPost.getBody()}}</p>
+        <a routerLink="/blog-post/{{blogPost.getId()}}" class="btn btn-primary">Read</a>
+      </div>
+    </div>
+  </div>
+</section>
