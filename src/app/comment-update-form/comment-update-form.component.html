@@ -1,0 +1,13 @@
+<div class="alert alert-danger" role="alert" *ngIf="error">
+  <strong>{{errorTitle}}</strong> {{errorMessage}}
+</div>
+
+<form class="container">
+  <h2>Update comment</h2>
+  <hr/>
+  <div class="form-group">
+    <label for="body">Comment message</label>
+    <textarea [(ngModel)]="body" name="body" type="text" class="form-control" id="body" aria-describedby="bodyHelp" placeholder="Enter comment message"></textarea>
+  </div>
+  <button (click)="update()" class="btn btn-primary">Update</button>
+</form>
